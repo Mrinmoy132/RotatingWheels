@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add State</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #000000, #03345a, #373434);
+            padding-top: 50px;
+        }
+
+        .body {
+            padding: 10px;
+        }
+
+        form {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #424245, #222222);
+            box-shadow: 0 0px 80px rgba(61, 139, 199, 0.429);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: rgb(245, 236, 236);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: none;
+            background-color: rgb(255, 242, 218);
+        }
+
+        .adventure-label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: fit-content;
+            gap: 10px;
+            color: black;
+        }
+
+        .checkbox-group>div {
+            background-color: rgb(255, 242, 218);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #coverPreview {
+            border-radius: 10px;
+            max-width: 150px;
+            max-height: 150px;
+            margin-top: 10px;
+            display: block;
+        }
+
+        button {
+            padding: 10px;
+            font-weight: bold;
+            background-color: rgb(20, 20, 19);
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            color: rgb(255, 255, 255);
+        }
+
+        button:hover {
+            color: rgb(226, 213, 213);
+        }
+
+        @media (max-width: 1000px) {
+            .adventure-label {
+                width: fit-content;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                width: 0px;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            form {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include ("navbar_forcontact") %>
+        <div class="body">
+
+            <form action="/explore/<%= country %>/add_state" method="POST" enctype="multipart/form-data">
+                <h2 style="text-align:center; margin-bottom: 10px; color: rgb(245, 236, 236);">Add the State</h2>
+                <div class="form-group">
+                    <label for="statename">State Name</label>
+                    <input type="text" name="statename" id="statename" maxlength="60" required>
+                </div>
+                <div class="form-group">
+                    <label for="cityname">City Name</label>
+                    <input type="text" name="cityname" id="cityname" maxlength="60" required>
+                </div>
+                <div class="form-group">
+                    <label for="stateTitle">State Title</label>
+                    <input type="text" name="stateTitle" id="stateTitle" maxlength="60" required>
+                </div>
+                <div class="form-group">
+                    <label for="stateDescription">State Description</label>
+                    <textarea name="stateDescription" id="stateDescription" rows="15" required></textarea>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label>State Adventures</label>
+                    <div>
+                        <label class="adventure-label"> <input type="checkbox" name="stateAdventures[]"
+                                value="Beach">Beach</label>
+                        <label class="adventure-label"> <input type="checkbox" name="stateAdventures[]"
+                                value="Mountains">Mountains</label>
+                        <label class="adventure-label"> <input type="checkbox" name="stateAdventures[]"
+                                value="Culture">Culture</label>
+                        <label class="adventure-label"> <input type="checkbox" name="stateAdventures[]"
+                                value="Wildlife">Wildlife</label>
+                        <label class="adventure-label"> <input type="checkbox" name="stateAdventures[]"
+                                value="Adventure">Adventure</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="stateorUt">State/UT</label>
+                    <select id="stateorUt" name="stateorUt">
+                        <option value="State">State</option>
+                        <option value="UT">UT</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="statethumbnail">State Thumbnail</label>
+                    <input type="file" name="statethumbnail" id="statethumbnail" accept="image/*" required>
+                    <img id="coverPreview">
+                </div>
+                <button class="btn" type="submit">Add</button>
+            </form>
+        </div>
+        <script>
+            const fileInput = document.getElementById('statethumbnail');
+            const previewImg = document.getElementById('coverPreview');
+
+            fileInput.addEventListener('change', function () {
+                const file = this.files[0];
+
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        previewImg.src = e.target.result;
+                        previewImg.style.display = 'block';
+                    };
+
+                    reader.readAsDataURL(file); // converts image to base64
+                } else {
+                    previewImg.src = '';
+                    previewImg.style.display = 'none';
+                }
+            });
+        </script>
+</body>
+
+</html>

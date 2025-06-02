@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= blog.title %> | Rotating Wheels
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #000000, #03345a, #373434);
+            padding-top: 50px;
+        }
+
+        .blog-container {
+            max-width: 1100px;
+            margin: auto;
+            background: #2a2a2a;
+            padding: 30px;
+            box-shadow: 0 0 50px rgba(87, 127, 238, 0.4);
+            border-radius: 20px 20px 0px 0px;
+        }
+
+        .blog-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 10px;
+            color: wheat;
+        }
+
+        .blog-author {
+            text-align: center;
+            font-size: 0.95rem;
+            color: #bbb;
+            margin-bottom: 30px;
+        }
+
+        .cover_photo_container {
+            text-align: center;
+        }
+
+        .cover-photo {
+            width: 90%;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        .blog-body {
+            white-space: pre-wrap;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #e0e0e0;
+        }
+
+        .ytLink_container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        iframe {
+            width: 50%;
+            height: 300px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .comments-section {
+            margin-top: 50px;
+        }
+
+        .comments-section h2 {
+            color: wheat;
+            margin-bottom: 15px;
+        }
+
+        .comment_container {
+            background: #3c3c3c;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .comment_owner {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .comment_owner img {
+            border-radius: 50%;
+        }
+
+        .comment_owner p {
+            margin: 0;
+            font-weight: bold;
+            color: wheat;
+        }
+
+        .comment {
+            background: #505050;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: #f1f1f1;
+            margin-top: 5px;
+        }
+
+        .comment-form textarea {
+            width: -webkit-fill-available;
+            height: 100px;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #aaa;
+            background: #2f2f2f;
+            color: #fff;
+        }
+
+        .comment-form button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #584521;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .comment-form button:hover {
+            background-color: #48381b;
+        }
+
+        @media (max-width: 1000px) {
+            body {
+                padding-top: 45px;
+            }
+
+            .blog-container {
+                padding: 30px 10px;
+            }
+
+            iframe{
+                width: 80%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('navbar') %>
+        <div class="blog-container">
+            <h1 class="blog-title">
+                <%= blog.title %>
+            </h1>
+            <div class="blog-author">
+                <p>By
+                    <span style="color: #2082de; font-weight:bold;">
+                        <%= blog.createdBy.fullname || "Anonymous" %>
+                    </span> | <%= new Date(blog.eventDate).toLocaleDateString("en-US", { year: "numeric" , month: "long"
+                        , day: "numeric" }) %>
+                </p>
+            </div>
+
+            <div class="cover_photo_container">
+                <img src="<%= blog.coverPhoto %>" alt="Cover Photo" class="cover-photo">
+            </div>
+
+            <div class="blog-body">
+                <%- blog.body %>
+            </div>
+
+            <% if (blog.youtubeLink) { %>
+                <div class="ytLink_container">
+                    <iframe src="<%= blog.youtubeLink %>" allowfullscreen></iframe>
+                </div>
+                <% } %>
+
+                    <div class="comments-section">
+                        <h2>Comments: (<%= comments.length %>)</h2>
+                        <% if (locals.comments && locals.comments.length> 0) { %>
+                            <% comments.forEach(comment=> { %>
+                                <div class="comment_container">
+                                    <div class="comment_owner">
+                                        <img src="<%= comment.createdBy.profileImageUrl %>" height="30" width="30"
+                                            alt="User Avatar">
+                                        <p>
+                                            <%= comment.createdBy.fullname %>
+                                        </p>
+                                    </div>
+                                    <div style="font-size: 0.85rem; color: #aaa;">
+                                        <% const options={ hour: 'numeric' , minute: 'numeric' , hour12: true,
+                                            month: 'long' , day: 'numeric' , year: 'numeric' }; %>
+                                            <%= comment.createdAt.toLocaleString('en-US', options) %>
+                                    </div>
+                                    <div class="comment">
+                                        <p>
+                                            <%= comment.content %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <% }); %>
+                                    <% } else { %>
+                                        <p style="padding-bottom: 10px; color: #e0e0e0;">No comments yet. Be the first
+                                            to comment!</p>
+                                        <% } %>
+
+                                            <div class="comment-form">
+                                                <form action="/all_blogs/<%= blog._id %>/comment" method="POST">
+                                                    <textarea name="content" placeholder="Write a comment..."
+                                                        required></textarea>
+                                                    <button type="submit">Post Comment</button>
+                                                </form>
+                                            </div>
+                    </div>
+        </div>
+        <%- include('footer') %>
+</body>
+
+</html>

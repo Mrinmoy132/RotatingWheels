@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Scroll</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1000;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background-color: rgb(0, 0, 0);
+            box-shadow: 0 2px 30px rgb(255 224 0 / 70%);
+        }
+
+        .left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            padding-left: 20px;
+        }
+
+        .right {
+            padding-right: 20px;
+        }
+
+        .left>a,
+        .dropdown-left,
+        .dropdown-content-left>a,
+        .dropdown-right,
+        .dropdown-content-right a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 6px 12px;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+
+        .dropbtn-right {
+            color: white;
+            text-decoration: none;
+        }
+
+        .dropdown-left,
+        .dropdown-right {
+            position: relative;
+        }
+
+        .dropdown-content-left,
+        .dropdown-content-right {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            display: none;
+            background-color: rgb(0, 0, 0);
+            border-radius: 5px;
+            padding: 5px;
+            min-width: max-content;
+        }
+
+        .dropdown-left:hover .dropdown-content-left {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 15px;
+        }
+
+        .dropdown-right:hover .dropdown-content-right {
+            display: flex;
+        }
+
+        .left>a:hover,
+        .dropdown-left:hover,
+        .dropdown-content-left>a:hover,
+        .dropdown-right:hover,
+        .dropdown-content-right>a:hover {
+            background: linear-gradient(to right, #ffedbe, #ffe090, #ffcf55);
+            color: #111;
+        }
+
+        .dropdown-right:hover .dropbtn-right {
+            color: #111;
+        }
+
+
+        @media (max-width: 1000px) {
+
+            .left {
+                gap: 25px;
+            }
+
+            .left>a,
+            .dropdown-left,
+            .dropdown-content-left>a,
+            .dropdown-right,
+            .dropdown-content-right a {
+                font-size: 16px;
+            }
+
+        }
+
+        @media (max-width: 800px) {
+            .left {
+                gap: 18px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .left {
+                gap: 15px;
+                padding-left: 10px;
+            }
+
+            .right {
+                padding-right: 10px;
+            }
+
+            .left>a,
+            .dropdown-left,
+            .dropdown-content-left>a,
+            .dropdown-right,
+            .dropdown-content-right a {
+                font-size: 12px;
+                padding: 2px 5px;
+                border-radius: 2px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .left {
+                gap: 5px;
+                padding-left: 5px;
+            }
+                .left>a,
+                .dropdown-left,
+                .dropdown-content-left>a,
+                .dropdown-right,
+                .dropdown-content-right a {
+                    padding: 2px 2px;
+                }
+            }
+    </style>
+</head>
+
+<body>
+    <div class="navbar" id="navbar">
+        <div class="left">
+            <% if (locals.user && locals.firstName) { %>
+                <a href="/user" class="<%= currentPath === '/user' ? 'active' : '' %>">Home</a>
+                <% } else { %>
+                    <a href="/" class="<%= currentPath === '/' ? 'active' : '' %>">Home</a>
+                    <% } %>
+                        <!-- <a href="/bio" class="<%= currentPath === '/bio' ? 'active' : '' %>">Bio</a> -->
+
+                        <div class="dropdown-left">
+                            <a class="dropbtn-left" id="exploreToggle">Explore</a>
+                            <div class="dropdown-content-left" id="exploreDropdown">
+                                <% const countryList=[ { country: "India" , link: "india" }, { country: "Indonesia" ,
+                                    link: "indonesia" }, { country: "Sri Lanka" , link: "srilanka" }, {
+                                    country: "Mongolia" , link: "mongolia" }, { country: "Kenya" , link: "kenya" }, {
+                                    country: "New Zealand" , link: "newzealand" } ]; %>
+                                    <% countryList.forEach(element=> { %>
+                                        <a href="/explore/<%= element.link %>">
+                                            <%= element.country %>
+                                        </a>
+                                        <% }) %>
+                            </div>
+                        </div>
+
+                        <a href="/all_blogs" class="<%= currentPath === '/all_blogs' ? 'active' : '' %>">Blogs</a>
+                        <% if (user && (user.role==='admin' || user.role==='editor' )) { %>
+                            <a href="/add_blog" class="<%= currentPath === '/add_blog' ? 'active' : '' %>">Add Blog</a>
+                            <% } %>
+                                <a href="/contact" class="<%= currentPath === '/contact' ? 'active' : '' %>">Contact</a>
+        </div>
+
+        <div class="right">
+            <% if (locals.user && locals.firstName) { %>
+                <div class="dropdown-right">
+                    <a class="dropbtn-right" id="signToggle">
+                        <%= firstName %>
+                    </a>
+                    <div class="dropdown-content-right" id="signDropdown">
+                        <a href="/user/logout">Logout</a>
+                    </div>
+                </div>
+                <% } else { %>
+                    <div class="dropdown-right">
+                        <a class="dropbtn-right" id="signToggle" href="/user/createaccount">Sign Up</a>
+                        <div class="dropdown-content-right" id="signDropdown">
+                            <a href="/user/login">Sign In</a>
+                        </div>
+                    </div>
+                    <% } %>
+        </div>
+    </div>
+
+    <script>
+        // Scroll background effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+
+        // Check if the device is touch-enabled
+        const isTouchDevice = () => {
+            return 'ontouchstart' in window || navigator.maxTouchPoints;
+        };
+
+        if (isTouchDevice()) {
+            const toggleexploreBtn = document.getElementById('exploreToggle');
+            const dropdownexplore = document.getElementById('exploreDropdown');
+            // const togglesignBtn = document.getElementById('signToggle');
+            // const dropdownsign = document.getElementById('signDropdown');
+
+            toggleexploreBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent default link behavior
+                dropdownexplore.style.display = dropdownexplore.style.display === 'grid' ? 'none' : 'grid';
+                dropdownexplore.style.gridTemplateColumns = dropdownexplore.style.display === 'none' ? 'none' : 'repeat(2, auto)';
+            });
+            // togglesignBtn.addEventListener('click', (e) => {
+            //     e.preventDefault(); // Prevent default link behavior
+            //     dropdownsign.style.display = dropdownsign.style.display === 'flex' ? 'none' : 'flex';
+            // });
+
+            // Optional: Close dropdown when clicking outside
+            document.addEventListener('click', function (e) {
+                if (!toggleexploreBtn.contains(e.target) && !dropdownexplore.contains(e.target)) {
+                    dropdownexplore.style.display = 'none';
+                }
+            });
+            // document.addEventListener('click', function (e) {
+            //     if (!togglesignBtn.contains(e.target) && !dropdownsign.contains(e.target)) {
+            //         dropdownsign.style.display = 'none';
+            //     }
+            // });
+        }
+
+    </script>
+</body>
+
+</html>

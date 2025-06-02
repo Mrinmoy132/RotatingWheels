@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Wheels</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Baloo+Bhai+2:wght@400..800&family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #000000, #03345a, #373434);
+            color: white;
+        }
+
+        .video-background {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        .video-content {
+            position: absolute;
+            z-index: 1;
+            color: white;
+            text-align: center;
+            bottom: 0;
+            right: 35%;
+            transform: translateY(-50%);
+        }
+
+        .video-content h1 {
+            font-family: "Montserrat", sans-serif;
+            font-size: 50px;
+            color: rgb(255, 255, 255);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-content p {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .pause-btn {
+            position: absolute;
+            bottom: 2%;
+            right: 5%;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .mute-btn {
+            position: absolute;
+            bottom: 2%;
+            right: 2%;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+
+        .bioandprofile {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 70px;
+            background-color: #ffff0059;
+            padding: 100px 50px;
+        }
+
+
+        .profile-section {
+            font-family: 'Georgia', serif;
+            position: relative;
+        }
+
+        .background-image {
+            position: relative;
+            height: 350px;
+            width: 500px;
+        }
+
+        .slideshow img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 350px;
+            width: 500px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(26, 26, 25, 0.7);
+            animation: fadeZoom 16s infinite;
+            opacity: 0;
+        }
+
+        @keyframes fadeZoom {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
+
+            5% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            25% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            30% {
+                opacity: 0;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        }
+
+        .slideshow img:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .slideshow img:nth-child(2) {
+            animation-delay: 4s;
+        }
+
+        .slideshow img:nth-child(3) {
+            animation-delay: 8s;
+        }
+
+        .slideshow img:nth-child(4) {
+            animation-delay: 12s;
+        }
+
+        .profile-card {
+            padding-bottom: 140px;
+            border-radius: 80px 80px 20px 20px;
+            margin-top: -85px;
+            position: relative;
+            background: #ffffff;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(26, 26, 25, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-card img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-top: -40px;
+            box-shadow: 0 4px 20px rgba(198, 61, 61, 0.5);
+
+        }
+
+        .name {
+            font-size: 36px;
+            margin: 30px 0 10px;
+            color: #333;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: #dc5c5c;
+            font-weight: 500;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 6s linear infinite;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        @keyframes typing {
+            0% {
+                width: 0%;
+            }
+
+            25% {
+                width: 50%;
+            }
+
+            50% {
+                width: 100%;
+            }
+
+            75% {
+                width: 50%
+            }
+
+            90% {
+                width: 0%;
+            }
+
+            100% {
+                width: 0%;
+            }
+        }
+
+        .biography {
+            margin: -10px;
+        }
+
+        .biography h1 {
+            font-size: 50px;
+            font-family: "Montserrat", sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .biography div {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('navbar') %>
+
+        <div class="video-background">
+            <video src="/home/home1.mp4" autoplay muted loop id="bgVideo">Your browser does not support the video
+                tag.</video>
+            <div class="video-content">
+                <h1>Rotating Wheels</h1>
+                <p>Where the wheels turn stories begin</p>
+            </div>
+            <img src="/home/pause.svg" class="pause-btn" onclick="togglepause()">
+            <img src="/home/mute.svg" class="mute-btn" onclick="toggleMute()">
+        </div>
+
+        <main>
+            <div class="bioandprofile">
+                <div class="profile-section">
+                    <div class="background-image">
+                        <div class="slideshow">
+                            <img src="/images/culture-tradition-of-india.jpg">
+                            <img src="/images/4714986_2491582.jpg">
+                            <img src="/images/pexels-umkreisel-app-956999.jpg">
+                            <img src="/images/default_profile.jpg">
+                        </div>
+                    </div>
+                    <div class="profile-card">
+                        <img src="/images/4714986_2491582.jpg" alt="Profile Photo">
+                        <h1 class="name">Mrinmoy</h1>
+                        <p class="tagline">Explorer • Content Creator</p>
+                    </div>
+                </div>
+                <div class="biography" id="bio">
+                    <h1>Biography</h1>
+                    <hr>
+                    <div>
+                        <p>Ever since I first twisted the throttle of my Yamaha FZS V3, I knew the road would become my
+                            second home. I’m Mrinmoy Das—a motovlogger, explorer, and storyteller who’s been riding
+                            through
+                            the heartbeats of India since 2021, capturing not just landscapes but memories etched in
+                            motion
+                            and emotion. What started as a casual ride turned into a lifelong passion, fueled by
+                            curiosity
+                            and a desire to see the country beyond the postcards. </p>
+
+                        <p>My journey kicked off with humble beginnings, driven by a camera, a helmet, and an unshakable
+                            spirit. Since then, I’ve roamed through the rolling hills of Meghalaya, the spiritual trails
+                            of
+                            Uttarakhand, the tropical serenity of the Andaman and Nicobar Islands, the cultural richness
+                            of
+                            Karnataka, and the lush green backwaters of Kerala. Each journey is not just about the
+                            destination—it’s about the stories, the people, the roadside chai, and the occasional wrong
+                            turn
+                            that leads to the best adventures. </p>
+
+                        <p>Traveling on two wheels is more than a lifestyle—it’s a commitment to simplicity, challenge,
+                            and
+                            raw experience. Riding through heavy rains in Cherrapunji, tracing winding hill roads in
+                            Nainital, or breathing in the salty air of Havelock Island, every mile carries a new lesson.
+                            And I’ve never been alone on this ride. My friends and even my parents have been a vital
+                            part of
+                            these journeys—making every trip a blend of adrenaline and warmth. </p>
+
+                        <p>Since 2021, my blog and vlogs under the name “Rotating Wheels” have become more than
+                            content—they’re a movement for those who want to explore but don’t know where to begin. I
+                            document not just the beautiful destinations but also the real side of travel: the
+                            breakdowns,
+                            the strangers who become friends, the hidden food joints, and the soul-soothing silences on
+                            deserted roads. </p>
+
+                        <p>One of the most enriching aspects of my journey has been the interaction with local cultures.
+                            I
+                            believe in immersive travel—whether it’s tasting traditional cuisine. My goal is to showcase
+                            the
+                            diversity of India while inspiring people to respect and preserve it. </p>
+
+                        <p>Whether you’re a biker, traveler, dreamer, or all of the above—welcome to my journey. This is
+                            just the beginning. The wheels are still rotating, and the stories are still being written.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <%- include('footer') %>
+            <script>
+                const togglepause = () => {
+                    const video = document.getElementById('bgVideo');
+                    const pauseBtn = document.querySelector('.pause-btn');
+
+                    if (video.paused) {
+                        video.play();
+                        pauseBtn.src = '/home/pause.svg';
+                    } else {
+                        video.pause();
+                        pauseBtn.src = '/home/play.svg';
+                    }
+                }
+                const toggleMute = () => {
+                    const video = document.getElementById('bgVideo');
+                    video.muted = !video.muted;
+                    document.querySelector('.mute-btn').src = video.muted ? `/home/mute.svg` : `/home/unmute.svg`;
+                }
+            </script>
+</body>
+
+</html>

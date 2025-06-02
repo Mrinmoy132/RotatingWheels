@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Wheels</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        body {
+            margin: 0;
+            background: linear-gradient(to right, #000000, #03345a, #373434);
+            font-family: "Montserrat", sans-serif;
+        }
+
+        .addState {
+            margin: 20px 40px;
+        }
+
+        .addState a {
+            padding: 10px 20px;
+            background-color: #0098d4;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .statephoto {
+            padding: 30px;
+            height: 86vh;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+        }
+
+        .statephoto> :first-child {
+            color: white;
+            font-size: 50px;
+            font-weight: 500;
+            letter-spacing: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .statephoto> :nth-child(2) {
+            color: white;
+            font-size: 70px;
+            font-weight: 900;
+            margin-top: -5px;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .statephoto> :nth-child(3) {
+            font-size: 20px;
+            margin-top: 30px;
+            color: rgb(255, 213, 0);
+        }
+
+        .statephoto> :nth-child(3) a {
+            color: rgb(255, 213, 0);
+        }
+
+        .statedescription {
+            background-color: rgb(234, 226, 201);
+            padding: 30px 50px;
+            margin: 50px 100px;
+            border-radius: 50px;
+            font-size: 20px;
+            text-align: center;
+            letter-spacing: 2px;
+            word-spacing: 3px;
+        }
+
+        .placeheading {
+            font-family: "Montserrat", sans-serif;
+            color: rgba(0, 20, 120, 0.7);
+            text-align: center;
+            background: linear-gradient(to right, #ffd865, #fede80, #ffe8a2);
+            padding-top: 20px;
+        }
+
+        .placeheading>h3 {
+            font-size: 30px;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .placeheading>h1 {
+            font-size: 80px;
+            font-weight: 900;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            background: linear-gradient(to right, #ffd865, #fede80, #ffe8a2);
+            padding: 20px 0px 40px 0px;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 60px 40px 60px 20px;
+        }
+
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .arrow-btn {
+            position: absolute;
+            top: 40%;
+            cursor: pointer;
+            z-index: 2;
+            background: none;
+            width: 50px;
+            transition: transform 0.2s;
+        }
+
+        .arrow-left {
+            left: 0%;
+        }
+
+        .arrow-right {
+            right: 0%;
+        }
+
+        .arrow-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .arrow-btn.hidden {
+            display: none;
+        }
+
+        .card {
+            width: 280px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-40px);
+            box-shadow: 0px 0px 15px 0 rgb(52, 4, 110);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s;
+            display: block;
+            cursor: pointer;
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 25px 20px 10px 20px;
+            display: flex;
+            flex-direction: column;
+            background: rgba(100, 54, 54);
+        }
+
+        .card-below {
+            margin: 0 0 10px;
+        }
+
+        .card-title {
+            display: flex;
+            justify-content: flex-start;
+            gap: 5px;
+            max-height: fit-content;
+            flex-direction: column;
+        }
+
+        .card-title :first-child {
+            color: rgba(254, 222, 128, 0.7);
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 18px;
+        }
+
+        .card-title :last-child {
+            color: rgb(255, 255, 255, 0.7);
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 12px;
+        }
+
+        .card-description-text {
+            font-family: "Montserrat", sans-serif;
+            font-size: 25px;
+            font-weight: 700;
+            color: rgb(255, 255, 255, 0.7);
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .card:hover .card-title :first-child {
+            color: rgb(254, 222, 128);
+        }
+
+        .card:hover .card-title :last-child {
+            color: rgb(255, 255, 255);
+        }
+
+        .card:hover .card-description-text {
+            color: rgb(255, 255, 255);
+        }
+
+        .card-button {
+            padding: 8px 15px;
+            width: 50px;
+            background: linear-gradient(to right, #ffedbe, #ffe090, #ffcf55);
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card:hover .card-button {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .title-body-container {
+            min-height: 120px;
+        }
+
+        .footer {
+            height: 30vh;
+        }
+
+        @media (max-width: 1000px) {
+            .statephoto {
+                padding: 15px;
+                height: 50vh;
+                background-attachment: initial;
+            }
+
+            .statephoto> :first-child {
+                font-size: 22px;
+            }
+
+            .statephoto> :nth-child(2) {
+                font-size: 30px;
+                margin-top: 0px;
+            }
+
+            .statephoto> :nth-child(3) {
+                margin-top: 15px;
+                font-size: 14px;
+            }
+
+            .statedescription {
+                padding: 30px 10px;
+                margin: 20px 10px;
+                letter-spacing: 0px;
+                word-spacing: 1px;
+                border-radius: 20px;
+                font-size: 15px;
+            }
+
+
+            .addState {
+                margin: 10px 15px;
+            }
+
+            .addState a {
+                padding: 8px 10px;
+            }
+
+            .placeheading>h1 {
+                font-size: 60px;
+            }
+
+            .carousel-track {
+                padding: 15px 15px 40px 0px;
+            }
+
+            .card {
+                box-shadow: 0px 0px 15px 0 rgb(52, 4, 110);
+            }
+
+            .card:hover {
+                transform: translateY(0px);
+                transition: none;
+            }
+
+            .card .card-title :first-child {
+                color: rgb(254, 222, 128);
+            }
+
+            .card .card-title :last-child {
+                color: rgb(255, 255, 255);
+            }
+
+            .card .card-description-text {
+                color: rgb(255, 255, 255);
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .placeheading>h1 {
+                font-size: 45px;
+                font-weight: 600;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include("navbar") %>
+
+        <div class="statephoto" style="background-image: url('<%= state.statethumbnail %>');">
+            <div>
+                <%= state.statename %>
+            </div>
+            <div>
+                <%= state.stateTitle %>
+            </div>
+            <div>Places to visit by: <a href="/">Rotating Wheels</a></div>
+        </div>
+
+        <div class="statedescription">
+            <i>
+                <%= state.stateDescription %>
+            </i>
+        </div>
+        <% if (user && (user.role==='admin' || user.role==='editor' )) { %>
+            <div class="addState">
+                <a href="/explore/<%= country %>/<%= state.statename %>/add_place">+ Add Place</a>
+            </div>
+            <% } %>
+                <div class="placeheading">
+                    <h3>- Explore -</h3>
+                    <h1>Attractions</h1>
+                </div>
+
+                <% if (places && places.length> 0) { %>
+                    <div class="carousel-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="40" color="purple"
+                        fill="wheat" class="arrow-btn arrow-left" onclick="scrollCarousel(-1)">
+                        <circle cx="12" cy="12" r="10" stroke="wheat" stroke-width="1" />
+                        <path d="M8 12L16 12M8 12C8 11.2998 9.9943 9.99153 10.5 9.5M8 12C8 12.7002 9.9943 14.0085 10.5 14.5"
+                            stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="40" color="purple"
+                        fill="wheat" class="arrow-btn arrow-right" onclick="scrollCarousel(1)">
+                        <circle cx="12" cy="12" r="10" stroke="wheat" stroke-width="1" />
+                        <path
+                            d="M16 12L8 12M16 12C16 12.7002 14.0057 14.0085 13.5 14.5M16 12C16 11.2998 14.0057 9.99153 13.5 9.5"
+                            stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                        <div class="carousel-track" id="carouselTrack">
+                            <% places.forEach(element=> { %>
+                                <a style="text-decoration: none;"
+                                    href="/explore/<%= country %>/<%= state.statename %>/<%= element._id %>">
+                                    <div class="card">
+                                        <img src="<%= element.placethumbnail %>" alt="Cover Photo" class="card-img">
+                                        <div class="card-content">
+                                            <div class="title-body-container">
+                                                <div class="card-below card-title">
+                                                    <p>
+                                                        <%= element.placename%>
+                                                    </p>
+
+                                                    <p>
+                                                        <% element.placeAdventures.forEach(e=> { %>
+                                                            # <%= e %> &nbsp;
+                                                                <% }); %>
+                                                    </p>
+                                                </div>
+                                                <div class="card-below">
+                                                    <p class="card-description-text">
+                                                        <%= element.placetitle %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div
+                                                style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                                                <a class="card-button"
+                                                    href="/explore/<%= country %>/<%= state.statename %>/<%= element._id %>">Explore</a>
+                                                <% if (user && (user.role==='admin' || user.role==='editor' )) { %>
+                                                    <a class="card-button"
+                                                        href="/explore/<%= country %>/<%= state.statename %>/edit_place/<%= element._id %>">Edit</a>
+                                                    <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <% }) %>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <div style="color:white; text-align:center; padding: 40px;">Coming Soon</div>
+                        <% } %>
+                            <%- include('footer') %>
+                                <script>
+                                    const carousel = document.getElementById('carouselTrack');
+                                    const arrowLeft = document.querySelector('.arrow-left');
+                                    const arrowRight = document.querySelector('.arrow-right');
+                                    function scrollCarousel(direction) {
+                                        const track = document.getElementById('carouselTrack');
+                                        const scrollAmount = 400;
+                                        track.scrollBy({ left: scrollAmount * direction, behavior: 'smooth' });
+                                    }
+                                    function updateArrows() {
+                                        const scrollLeft = carousel.scrollLeft;
+                                        const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+
+                                        if (scrollLeft <= 0) {
+                                            arrowLeft.classList.add('hidden');
+                                        } else {
+                                            arrowLeft.classList.remove('hidden');
+                                        }
+
+                                        if (scrollLeft >= maxScrollLeft - 1) {
+                                            arrowRight.classList.add('hidden');
+                                        } else {
+                                            arrowRight.classList.remove('hidden');
+                                        }
+                                    };
+                                    carousel.addEventListener('scroll', updateArrows);
+                                    window.addEventListener('load', updateArrows);
+                                </script>
+</body>
+
+</html>

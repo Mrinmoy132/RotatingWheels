@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+      padding-top: 50px;
+      background: linear-gradient(to right, #000000, #03345a, #373434);
+    }
+
+    .signup-container {
+      width: 300px;
+      margin: 50px auto;
+      padding: 30px;
+      background: linear-gradient(to right, #fffde4, #fede80);
+      border-radius: 8px;
+      box-shadow: 0 0 50px rgba(255, 203, 91, 0.7);
+    }
+
+    .signup-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .form-group input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      border: none;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(to right, #47474a, #03345a, #435490);
+      color: wheat;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background: linear-gradient(to right, #333335, #02233d, #33406f);
+    }
+
+    .OR {
+      text-align: center;
+      margin: 15px 0;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .error-box {
+      background-color: #ffe0e0;
+      color: #a00;
+      border: 1px solid #cc0000;
+      padding: 10px;
+      margin: 20px auto;
+      width: 300px;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    .login {
+      display: block;
+      text-align: center;
+      padding: 10px;
+      background: linear-gradient(to right, #47474a, #03345a, #435490);
+      color: wheat;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: lighter;
+      font-size: small;
+    }
+
+    .login:hover {
+      background: linear-gradient(to right, #333335, #02233d, #33406f);
+    }
+
+    @media (max-width: 400px) {
+      .signup-container {
+        width: 250px;
+        padding: 20px 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <%- include ("navbar_forcontact") %>
+    <div class="signup-container">
+      <h2>Sign Up</h2>
+      <form action="/user/createaccount" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" name="fullname" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+          <label for="profileImageUrl">Profile Photo</label>
+          <input type="file" name="profileImageUrl" id="profileImageUrl" accept="image/*">
+          <img id="coverPreview"
+            style="border-radius: 10px; max-width: 150px; max-height: 150px; margin-top: 10px; display: block;">
+        </div>
+        <button type="submit">Create Account</button>
+        <div class="OR">or</div>
+        <a href="/user/login" class="login">
+          Sign In
+        </a>
+      </form>
+    </div>
+    <script>
+      const fileInput = document.getElementById('profileImageUrl');
+      const previewImg = document.getElementById('coverPreview');
+
+      fileInput.addEventListener('change', function () {
+        const file = this.files[0];
+
+        if (file && file.type.startsWith('image/')) {
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            previewImg.src = e.target.result;
+            previewImg.style.display = 'block';
+          };
+
+          reader.readAsDataURL(file); // converts image to base64
+        } else {
+          previewImg.src = '';
+          previewImg.style.display = 'none';
+        }
+      });
+    </script>
+</body>
+
+</html>

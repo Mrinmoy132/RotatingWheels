@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Wheels</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Baloo+Bhai+2:wght@400..800&family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #000000, #03345a, #373434);
+            color: white;
+        }
+
+        .video-background {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .video-container {
+            display: flex;
+            width: 400%;
+            transition: transform 1s ease;
+        }
+
+        .video-container video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .video-content {
+            /* position: absolute;
+            z-index: 1; */
+            color: white;
+            text-align: center;
+            /* bottom: 0;
+            right: 35%; */
+            transform: translateY(-125%);
+        }
+
+        .video-content h1 {
+            font-family: "Montserrat", sans-serif;
+            font-size: 50px;
+            color: rgb(255, 255, 255);
+            text-shadow: 0px 5px 20px rgb(0 0 0);
+        }
+
+        .video-content p {
+            text-shadow: 0px 5px 20px rgb(0 0 0);
+        }
+
+        .pause-btn {
+            position: absolute;
+            bottom: 2%;
+            right: 5%;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .mute-btn {
+            position: absolute;
+            bottom: 2%;
+            right: 2%;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .nav-btn {
+            position: absolute;
+            bottom: 1%;
+            transform: translateY(-50%);
+            z-index: 12;
+            font-size: 30px;
+            background: none;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-btn.prev {
+            left: 3%;
+        }
+
+        .nav-btn.next {
+            left: 7%;
+        }
+
+
+        .bioandprofile {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 70px;
+            background-color: #ffff0059;
+            padding: 100px 50px;
+        }
+
+
+        .profile-section {
+            font-family: 'Georgia', serif;
+            position: relative;
+        }
+
+        .background-image {
+            position: relative;
+            height: 350px;
+            width: 500px;
+        }
+
+        .slideshow img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 350px;
+            width: 500px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(26, 26, 25, 0.7);
+            animation: fadeZoom 30s infinite;
+            opacity: 0;
+        }
+
+        @keyframes fadeZoom {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
+
+            5% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            25% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            30% {
+                opacity: 0;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        }
+
+        /* Stagger animation delays */
+        .slideshow img:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .slideshow img:nth-child(2) {
+            animation-delay: 6s;
+        }
+
+        .slideshow img:nth-child(3) {
+            animation-delay: 12s;
+        }
+
+        .slideshow img:nth-child(4) {
+            animation-delay: 18s;
+        }
+
+        .slideshow img:nth-child(5) {
+            animation-delay: 24s;
+        }
+
+        .profile-card {
+            padding-bottom: 140px;
+            border-radius: 80px 80px 20px 20px;
+            margin-top: -85px;
+            position: relative;
+            background: #fff0e8;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(26, 26, 25, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-card img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-top: -40px;
+            box-shadow: 0 4px 20px rgba(198, 61, 61, 0.5);
+
+        }
+
+        .name {
+            font-size: 36px;
+            margin: 30px 0 10px;
+            color: #333;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: #dc5c5c;
+            font-weight: 500;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 6s linear infinite;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        @keyframes typing {
+            0% {
+                width: 0%;
+            }
+
+            25% {
+                width: 50%;
+            }
+
+            50% {
+                width: 100%;
+            }
+
+            75% {
+                width: 50%;
+            }
+
+            90% {
+                width: 0%;
+            }
+
+            100% {
+                width: 0%;
+            }
+        }
+
+        .biography {
+            margin: -10px;
+        }
+
+        .biography h1 {
+            font-size: 50px;
+            font-family: "Montserrat", sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .biography div {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        @media (max-width: 1000px) {
+            .video-background {
+                height: 50vh;
+            }
+
+            .video-container video {
+                height: 50vh;
+            }
+
+            .nav-btn {
+                font-size: 20px;
+                bottom: 0%;
+            }
+
+            .pause-btn {
+                bottom: 0%;
+                right: 8%;
+            }
+
+            .mute-btn {
+                bottom: 0%;
+                right: 0%;
+            }
+
+            .nav-btn.next {
+                left: 10%;
+            }
+
+            .video-content h1 {
+                font-size: 25px;
+            }
+
+            .video-content p {
+                font-size: 10px;
+            }
+
+            .bioandprofile {
+                flex-direction: column;
+                padding: 20px 10px;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .background-image {
+                width: 90vw;
+                height: 350px;
+            }
+
+            .slideshow img {
+                width: 90vw;
+                object-position: center;
+            }
+
+            .profile-card {
+                padding-bottom: 120px;
+                border-radius: 80px 80px 5px 5px;
+            }
+
+            .biography h1,
+            hr {
+                display: none;
+            }
+
+            .biography {
+                margin: 0px;
+            }
+            .biography div {
+                font-family: "Montserrat", sans-serif;
+                font-size: 14px;
+                font-style: italic;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .background-image {
+                height: 300px;
+            }
+            .profile-card {
+                padding-bottom: 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('navbar') %>
+        <div class="video-background">
+            <div class="video-container" id="videoSlider">
+                <video src="/home/monubonkul.mp4" autoplay muted loop playsinline>Your browser does not
+                    support the
+                    video</video>
+                <video src="/home/Udupi.mp4" loop playsinline>Your browser does not support the
+                    video</video>
+                <video src="/home/chikkamaglur.mp4" loop playsinline>Your browser does not support the
+                    video</video>
+                <video src="/home/sunshine.mp4" loop playsinline>Your browser does not support the
+                    video</video>
+            </div>
+            <div class="video-content">
+                <h1>Rotating Wheels</h1>
+                <p>Where the wheels turn stories begin</p>
+            </div>
+            <img src="/icons/playbutton.svg" class="pause-btn" onclick="togglePause()">
+            <img src="/icons/mute.svg" class="mute-btn" onclick="toggleMute()">
+
+            <button class="nav-btn prev" onclick="changeVideo(-1)">❮</button>
+            <button class="nav-btn next" onclick="changeVideo(1)">❯</button>
+        </div>
+
+        <main>
+            <div class="bioandprofile">
+                <div class="profile-section">
+                    <div class="background-image">
+                        <div class="slideshow">
+                            <img src="/images/coverprofile1.jpg">
+                            <img src="/images/coverprofile2.jpg">
+                            <img src="/images/coverprofile3.jpg">
+                            <img src="/images/coverprofile4.jpg">
+                            <img src="/images/coverprofile5.jpg">
+                        </div>
+                    </div>
+                    <div class="profile-card">
+                        <img src="/images/profile.jpg" alt="Profile Photo">
+                        <h1 class="name">Mrinmoy</h1>
+                        <p class="tagline">Explorer • Content Creator</p>
+                    </div>
+                </div>
+
+                <div class="biography" id="bio">
+                    <h1>Biography</h1>
+                    <hr>
+                    <div>
+                        <p>Ever since I first twisted the throttle of my Yamaha FZS V3, I knew the road would become my
+                            second home. I’m Mrinmoy Das—a motovlogger, explorer, and storyteller who’s been riding
+                            through
+                            the heartbeats of India since 2021, capturing not just landscapes but memories etched in
+                            motion
+                            and emotion. What started as a casual ride turned into a lifelong passion, fueled by
+                            curiosity
+                            and a desire to see the country beyond the postcards. </p>
+
+                        <p>My journey kicked off with humble beginnings, driven by a camera, a helmet, and an unshakable
+                            spirit. Since then, I’ve roamed through the rolling hills of Meghalaya, the spiritual trails
+                            of
+                            Uttarakhand, the tropical serenity of the Andaman and Nicobar Islands, the cultural richness
+                            of
+                            Karnataka, and the lush green backwaters of Kerala. Each journey is not just about the
+                            destination—it’s about the stories, the people, the roadside chai, and the occasional wrong
+                            turn
+                            that leads to the best adventures. </p>
+
+                        <p>Traveling on two wheels is more than a lifestyle—it’s a commitment to simplicity, challenge,
+                            and
+                            raw experience. Riding through heavy rains in Cherrapunji, tracing winding hill roads in
+                            Nainital, or breathing in the salty air of Havelock Island, every mile carries a new lesson.
+                            And I’ve never been alone on this ride. My friends and even my parents have been a vital
+                            part of
+                            these journeys—making every trip a blend of adrenaline and warmth. </p>
+
+                        <p>Since 2021, my blog and vlogs under the name “Rotating Wheels” have become more than
+                            content—they’re a movement for those who want to explore but don’t know where to begin. I
+                            document not just the beautiful destinations but also the real side of travel: the
+                            breakdowns,
+                            the strangers who become friends, the hidden food joints, and the soul-soothing silences on
+                            deserted roads. </p>
+
+                        <p>One of the most enriching aspects of my journey has been the interaction with local cultures.
+                            I
+                            believe in immersive travel—whether it’s tasting traditional cuisine. My goal is to showcase
+                            the
+                            diversity of India while inspiring people to respect and preserve it. </p>
+
+                        <p>Whether you’re a biker, traveler, dreamer, or all of the above—welcome to my journey. This is
+                            just the beginning. The wheels are still rotating, and the stories are still being written.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <%- include('footer') %>
+            <script>
+                const videoContainer = document.getElementById("videoSlider");
+                const videos = videoContainer.querySelectorAll("video");
+                const pauseBtn = document.querySelector(".pause-btn");
+                const muteBtn = document.querySelector(".mute-btn");
+                let currentIndex = 0;
+                let timeout;
+                // let interval = setInterval(() => changeVideo(1), 5000);
+
+                const resetVideos = () => {
+                    videos.forEach((video, index) => {
+                        video.pause();
+                        video.currentTime = 0;
+                        video.muted = true;
+                    });
+                }
+
+                const startAutoSlide = () => {
+                    const currentVideo = videos[currentIndex];
+                    currentVideo.play();
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        changeVideo(1);
+                    }, (currentVideo.duration || 7) * 1000); // fallback to 7 seconds
+                }
+
+                const changeVideo = async (direction) => {
+                    let mutedornot = videos[currentIndex].muted;
+                    videos[currentIndex].pause();
+                    currentIndex = (currentIndex + direction + videos.length) % videos.length;
+                    videoContainer.style.transform = `translateX(-${currentIndex * 100}vw)`;
+                    resetVideos();
+                    videos[currentIndex].play();
+                    videos[currentIndex].muted = mutedornot;
+                    updateButtonIcons();
+                    startAutoSlide();
+                }
+
+                const togglePause = () => {
+                    const currentVideo = videos[currentIndex];
+                    if (currentVideo.paused) {
+                        currentVideo.play();
+                    } else {
+                        currentVideo.pause();
+                    }
+                    updateButtonIcons();
+                }
+
+                const toggleMute = () => {
+                    const currentVideo = videos[currentIndex];
+                    currentVideo.muted = !currentVideo.muted;
+                    updateButtonIcons();
+                }
+
+                const updateButtonIcons = () => {
+                    const currentVideo = videos[currentIndex];
+                    pauseBtn.src = currentVideo.paused ? "/icons/pausebutton.svg" : "/icons/playbutton.svg";
+                    muteBtn.src = currentVideo.muted ? "/icons/mute.svg" : "/icons/unmute.svg";
+                }
+
+                window.addEventListener('load', startAutoSlide);
+            </script>
+</body>
+
+</html>

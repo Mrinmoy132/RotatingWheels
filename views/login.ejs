@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            padding-top: 50px;
+            background: linear-gradient(to right, #000000, #03345a, #373434);
+        }
+
+        .signup-container {
+            width: 300px;
+            margin: 50px auto;
+            padding: 30px;
+            background: linear-gradient(to right, #fffde4, #fede80);
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(255, 203, 91, 0.7);
+        }
+
+        .signup-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(to right, #47474a, #03345a, #435490);
+            color: wheat;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(to right, #333335, #02233d, #33406f);
+        }
+
+        .error-box {
+            background-color: #ffe0e0;
+            color: #a00;
+            border: 1px solid #cc0000;
+            padding: 10px;
+            margin: 20px auto;
+            width: 300px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 400px) {
+            .signup-container{
+                width: 250px;
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include ("navbar_forcontact") %>
+        <% if (locals.error) { %>
+            <div class="error-box">
+                <%= error %>
+            </div>
+            <% } %>
+                <div class="signup-container">
+                    <h2>Sign In</h2>
+                    <form action="/user/login" method="POST">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+
+                        <button type="submit">Login</button>
+                    </form>
+                </div>
+</body>
+
+</html>

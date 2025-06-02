@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Wheels</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #000000, #03345a, #373434);
+            padding-top: 50px;
+        }
+
+        h1 {
+            color: wheat;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .generalP {
+            color: whitesmoke;
+            margin: 5px 40px;
+            text-align: center;
+            font-weight: lighter;
+            font-family: system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            letter-spacing: 1px;
+            word-spacing: 3px;
+        }
+
+        .body {
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            width: 300px;
+            cursor: pointer;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px;
+            box-shadow: 0px 0px 50px rgba(110, 194, 233, 0.5);
+            font-family: sans-serif;
+            transition: transform 0.3s;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s;
+            display: block;
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(to right, #fce1b0, #f2ebde);
+        }
+
+        .card-below {
+            margin: 0 0 10px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            color: rgb(97, 97, 97);
+            max-height: fit-content;
+            word-break: keep-all;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-description-text {
+            font-size: 14px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            line-height: 1.2em;
+            height: 6em;
+            color: rgb(130, 130, 130);
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #443619;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .card:hover .card-button {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .event {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .event>div {
+            border: 1px solid #19170f;
+            border-radius: 5px;
+            color: #19170f;
+            padding: 4px;
+            font-size: 16px;
+        }
+
+        .card:hover .card-title {
+            color: rgb(0, 0, 0);
+        }
+
+        .title-body-container {
+            min-height: 160px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .arrow-btn {
+            position: absolute;
+            top: 49%;
+            cursor: pointer;
+            z-index: 2;
+            width: 50px;
+            /* transform: translateY(50%); */
+            transition: transform 0.2s;
+            display: none;
+        }
+
+        .arrow-left {
+            left: 0%;
+        }
+
+        .arrow-right {
+            right: 0%;
+        }
+
+        .arrow-btn:hover {
+            transform: scale(1.1);
+
+        }
+
+        @media (max-width: 1000px) {
+
+            .generalP {
+                font-size: 15px;
+                margin: 5px;
+            }
+
+            .body {
+                overflow: auto;
+                flex-wrap: nowrap;
+                margin-top: 20px;
+            }
+
+            .body1 {
+                position: relative;
+                overflow: auto;
+            }
+
+            .card {
+                min-width: 300px;
+
+            }
+
+            .event>div {
+                font-size: 15px;
+            }
+
+            .card-img {
+                height: 220px;
+            }
+
+            .card-title {
+                font-size: 25px;
+                color: rgb(44, 44, 44);
+            }
+
+            .card-description-text {
+                font-size: 15px;
+            }
+
+            .arrow-btn {
+                display: inline;
+            }
+
+            .arrow-btn.hidden {
+                display: none;
+            }
+
+            .body::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include ("navbar") %>
+        <h1>Blog</h1>
+        <p class="generalP">Travel isn’t just something I do, it’s where my stories begin (and sometimes go hilariously
+            wrong), realizing how big and beautiful the world really is. From filming vlogs in the rain to accidentally
+            ordering only maggie for lunch, every place gives me a story, a lesson, a laugh, a scar, a perspective of
+            live, and unforgettable bloopers I’ll never forget, making friends without speaking the same language that’s
+            the magic of it. I’ve wandered through bustling streets, remote trails, and occasionally airport security
+            for a little too long. With a camera in one hand and zero GPS signal in the other, I chase moments that make
+            you laugh, wonder, or say ‘no way, that's how we should live’. This channel and blogs are my digital
+            identity — welcome here, and don’t forget to give more ideas.</p>
+        <div class="body1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="40" color="purple"
+                fill="wheat" class="arrow-btn arrow-left" onclick="scrollCarousel(-1)">
+                <circle cx="12" cy="12" r="10" stroke="wheat" stroke-width="1" />
+                <path d="M8 12L16 12M8 12C8 11.2998 9.9943 9.99153 10.5 9.5M8 12C8 12.7002 9.9943 14.0085 10.5 14.5"
+                    stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="40" color="purple"
+                fill="wheat" class="arrow-btn arrow-right" onclick="scrollCarousel(1)">
+                <circle cx="12" cy="12" r="10" stroke="wheat" stroke-width="1" />
+                <path
+                    d="M16 12L8 12M16 12C16 12.7002 14.0057 14.0085 13.5 14.5M16 12C16 11.2998 14.0057 9.99153 13.5 9.5"
+                    stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="body" id="scrollCard">
+                <% if (cards && cards.length> 0) { %>
+
+                    <% cards.forEach(element=> { %>
+
+                        <div class="card" data-url="/all_blogs/<%= element._id %>">
+                            <img src="<%= element.coverPhoto %>" alt="Cover Photo" class="card-img">
+                            <div class="card-content">
+                                <div class="card-below event">
+                                    <div>
+                                        <%= new Date(element.eventDate).toLocaleDateString('en-US', { month: 'long' ,
+                                            day: 'numeric' , year: 'numeric' }) %>
+                                    </div>
+                                </div>
+                                <div class="title-body-container">
+                                    <div class="card-below card-title">
+                                        <%= element.title %>
+                                    </div>
+                                    <div class="card-below">
+                                        <p class="card-description-text">
+                                            <% const fullText=`${element.body}`;
+                                                const parts = fullText.split('</h2>');
+                                                const afterH2 = parts[1]; %>
+                                                    <%= afterH2%>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="button-container">
+                                    <a href="/all_blogs/<%= element._id %>" class="card-button">View</a>
+                                    <% if (user && (user.role==='admin' || user.role==='editor' )) { %>
+                                        <a href="/all_blogs/edit_blog/<%= element._id %>" class="card-button">Edit</a>
+                                        <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+            </div>
+        </div>
+        <% } else { %>
+            Add some blogs
+            <% } %>
+                <%- include('footer') %>
+
+                    <script>
+                        const carousel = document.getElementById('scrollCard');
+                        const arrowLeft = document.querySelector('.arrow-left');
+                        const arrowRight = document.querySelector('.arrow-right');
+
+                        document.querySelectorAll(".card").forEach(card => {
+                            card.addEventListener("click", function (e) {
+                                // Prevent click if Edit button was clicked
+                                if (e.target.closest(".edit-btn")) return;
+                                const url = this.getAttribute("data-url");
+                                if (url) {
+                                    window.location.href = url;
+                                }
+                            });
+                        });
+
+                        function updateArrows() {
+                            const scrollLeft = carousel.scrollLeft;
+                            const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+
+                            if (scrollLeft <= 0) {
+                                arrowLeft.classList.add('hidden');
+                            } else {
+                                arrowLeft.classList.remove('hidden');
+                            }
+
+                            if (scrollLeft >= maxScrollLeft - 1) {
+                                arrowRight.classList.add('hidden');
+                            } else {
+                                arrowRight.classList.remove('hidden');
+                            }
+                        };
+
+                        function scrollCarousel(direction) {
+                            const track = document.getElementById('scrollCard');
+                            const scrollAmount = 400;
+                            track.scrollBy({ left: scrollAmount * direction, behavior: 'smooth' });
+                        }
+
+                        carousel.addEventListener('scroll', updateArrows);
+                        window.addEventListener('load', updateArrows);
+                    </script>
+</body>
+
+</html>

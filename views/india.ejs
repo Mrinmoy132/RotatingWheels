@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400..800&family=Lobster&display=swap');
+
+
+        body {
+            background: linear-gradient(to right, #000000, #03345a, #373434);
+            margin: 0;
+            padding: 0;
+            padding-top: 50px;
+        }
+
+        .addState {
+            margin: 20px 40px;
+        }
+
+        .addState>a {
+            background-color: #0098d4;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .addState>a:hover {
+            background-color: #0081b4;
+        }
+
+        .states {
+            margin: 40px;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: "Montserrat", sans-serif;
+        }
+
+        .states h1 {
+            color: wheat;
+            font-size: 50px;
+        }
+
+        .states h3 {
+            color: #eae4d8;
+            font-size: 25px;
+        }
+
+        .bodyst {
+            padding: 52px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/images/indiamapforstate.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: top;
+            background-attachment: fixed;
+        }
+
+        .bodyut {
+            padding: 52px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/indiamapforstate.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-attachment: fixed;
+        }
+
+        .card {
+            position: relative;
+            width: 300px;
+            height: 350px;
+            border-radius: 100px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: white;
+            transition: transform 0.3s ease;
+            transform: translate(0px, 0px);
+        }
+
+        .card:hover {
+            transform: translate(0px, -30px);
+            box-shadow: 0 0px 30px rgba(255, 243, 199, 0.8);
+        }
+
+        .card-overlay {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 80%);
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            text-decoration: none;
+        }
+
+        .card-title {
+            font-size: 30px;
+            font-weight: bold;
+            color: rgb(204, 204, 204);
+        }
+
+        .card:hover .card-title {
+            color: rgb(255, 255, 255);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-desc {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: rgb(193, 175, 141);
+        }
+
+        .card:hover .card-desc {
+            color: wheat;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-tags {
+            font-size: 12px;
+            margin-bottom: 15px;
+            color: #ccc;
+            list-style: none;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card:hover .card-tags {
+            color: #ffffff;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 8px 10px;
+            background: linear-gradient(to right, #ffedbe, #ffe090, #ffcf55);
+            color: rgb(46, 42, 42);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .card:hover .card-button {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 1000px) {
+            .addState {
+                margin: 10px;
+            }
+
+            .addState a {
+                padding: 8px;
+            }
+
+            .states {
+                margin: 40px 10px;
+            }
+
+            .states h3 {
+                font-size: 18px;
+            }
+
+            .states h1 {
+                font-size: 30px;
+            }
+
+            .bodyst,
+            .bodyut {
+                padding: 10px;
+                gap: 10px;
+                justify-content: space-evenly;
+            }
+
+            .card {
+                width: 180px;
+                height: 250px;
+            }
+
+            .card:hover {
+                transform: translate(0px, 0px);
+            }
+
+            .card-title {
+                font-size: 20px;
+                color: rgb(255, 255, 255);
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+
+            .card-desc {
+                font-size: 16px;
+                color: wheat;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+
+            .card-tags {
+                font-size: 10px;
+                color: #e4e4e4;
+                gap: 5px;
+                flex-wrap: wrap;
+            }
+
+            .card-button {
+                transform: translateY(0);
+                opacity: 1;
+                padding: 5px 8px;
+                font-size: 10px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('navbar') %>
+
+        <% if (user && (user.role==='admin' || user.role==='editor' )) { %>
+            <div class="addState">
+                <a href="/explore/<%= country %>/add_state">+ Add State</a>
+            </div>
+            <% } %>
+
+                <% if (allStateUTs && allStateUTs.length> 0) { %>
+                    <div class="states">
+                        <h3> - Indian States -</h3>
+                        <h1>Land of Many Colors</h1>
+                    </div>
+                    <div class="bodyst">
+                        <% allStates.forEach(element=> { %>
+                            <div class="card" style="background-image: url('<%= element.statethumbnail %>');"
+                                data-url="/explore/<%= country %>/<%= element.statename %>">
+                                <div class="card-overlay">
+                                    <div class="card-title">
+                                        <%= element.statename %>
+                                    </div>
+                                    <div class="card-desc">
+                                        <%= element.stateTitle %>
+                                    </div>
+                                    <div class="card-tags">
+                                        <% element.stateAdventures.forEach(tag=> { %>
+                                            <li>
+                                                #<%= tag %>
+                                                    <% }) %>
+                                            </li>
+                                    </div>
+                                    <div style="display: flex; gap: 10px; justify-content: center;">
+                                        <a class="card-button"
+                                            href="/explore/<%= country %>/<%= element.statename %>">View</a>
+                                        <% if (user && (user.role==='admin' || user.role==='editor' )) { %>
+                                            <a class="card-button"
+                                                href="/explore/<%= country %>/edit_state/<%= element.statename %>">Edit</a>
+                                            <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+
+                    <div class="states">
+                        <h3> - Union Territories - </h3>
+                        <h1>The Quiet Pulse of India</h1>
+
+                    </div>
+
+                    <div class="bodyut">
+                        <% allUTs.forEach(element=> { %>
+                            <div class="card" style="background-image: url('<%= element.statethumbnail %>');"
+                                data-url="/explore/<%= country %>/<%= element.statename %>">
+                                <div class="card-overlay">
+                                    <div class="card-title">
+                                        <%= element.statename %>
+                                    </div>
+                                    <div class="card-desc">
+                                        <%= element.stateTitle %>
+                                    </div>
+                                    <div class="card-tags">
+                                        <% element.stateAdventures?.forEach(tag=> { %>
+                                            #<%= tag %>
+                                                <% }) %>
+                                    </div>
+                                    <div style="display: flex; gap: 10px; justify-content: center;">
+                                        <a class="card-button"
+                                            href="/explore/<%= country %>/<%= element.statename %>">View</a>
+                                        <% if (user && (user.role==='admin' || user.role==='editor' )) { %>
+                                            <a class="card-button"
+                                                href="/explore/<%= country %>/edit_state/<%= element.statename %>">Edit</a>
+                                            <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+
+                    <% } else { %>
+                        <div style="color:white; padding: 40px;">Add some States</div>
+                        <% } %>
+                            <%- include('footer') %>
+                                <script>
+                                    document.querySelectorAll(".card").forEach(card => {
+                                        card.addEventListener("click", function (e) {
+                                            if (e.target.closest(".edit-btn")) return;
+                                            const url = this.getAttribute("data-url");
+                                            if (url) {
+                                                window.location.href = url;
+                                            }
+                                        });
+                                    });
+                                </script>
+</body>
+
+</html>
