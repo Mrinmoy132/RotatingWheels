@@ -17,7 +17,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-connectDB(process.env.MONGODB_URL);
+connectDB(process.env.MONGODB_URI);
 
 app.use(express.static(path.resolve("public")));
 app.use(express.urlencoded({ extended: true }));
